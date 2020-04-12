@@ -1,0 +1,38 @@
+<?xml version='1.0'?>
+<sdf version='1.4'>
+  <model name="asb">
+  <static>true</static>
+  
+  <link name='base_link'>
+            <pose>0 0 .010 0 0 0</pose>
+          <inertial>
+            <inertia>
+                <ixx>2.6441344E-7</ixx>
+                <ixy>-4.078209E-9</ixy>
+                <ixz>1.36947056E-8</ixz>
+                <iyy>7.816956416E-6</iyy>
+                <iyz>1.3423788E-8</iyz>
+                <izz>7.169554432E-6</izz>
+            </inertia>
+            <mass>3.0</mass>
+         </inertial>
+
+
+            <collision name='collision'>
+              <geometry>
+                <mesh>
+                 <uri>model://home/adil/sim_ws/src/gazebo_sim/meshes/base_link.dae</uri>
+                </mesh>
+              </geometry>
+            </collision>
+
+            <visual name='visual'>
+              <geometry>
+                <mesh>
+                 <uri>model://home/adil/sim_ws/src/gazebo_sim/meshes/base_link.dae</uri>
+                </mesh>
+              </geometry>
+            </visual>
+          </link>
+  </model>
+</sdf>
