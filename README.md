@@ -89,10 +89,11 @@ python3 Viewer_video.py
 ## Authors
 
 * **Soofiyan Atar**
+* **Adil Shaikh**
 
 
 ## Acknowledgments
 
-* pyimagesearch
+* **pyimagesearch**
 
  
