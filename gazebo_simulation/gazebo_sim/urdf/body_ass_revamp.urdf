@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<robot name="asb">    
+  <!-- .............................................................................................. -->
+  <link name="base_link">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="3" />
+      <inertia
+        ixx="0.0013934"
+        ixy="3.9715E-08"
+        ixz="2.6411E-09"
+        iyy="0.00098223"
+        iyz="-1.5817E-07"
+        izz="0.0011147" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/adil/sim_ws/src/gazebo_sim/meshes/base_link.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="file:///home/adil/sim_ws/src/gazebo_sim/meshes/base_link.dae" />
+      </geometry>
+    </collision>
+    
+  </link>
+ <!-- .............................................................................................. -->
+<link name="wheel1">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.2" />
+      <inertia
+        ixx="5.27E-2"
+        ixy="1.3E-10"
+        ixz="-7.8E-10"
+        iyy="2.69E-2"
+        iyz="3.17E-8"
+        izz="2.69E-2" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/adil/sim_ws/src/gazebo_sim/meshes/wheel1.dae" />
+      </geometry>
+    </visual>
+    
+    <collision>
+      <geometry>
+        <mesh filename="file:///home/adil/sim_ws/src/gazebo_sim/meshes/wheel1.dae" />
+      </geometry>
+    </collision>
+    
+  </link>
+
+
+<link name="wheel2">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.2" />
+      <inertia
+        ixx="5.27E-2"
+        ixy="1.3E-10"
+        ixz="-7.8E-10"
+        iyy="2.69E-2"
+        iyz="3.17E-8"
+        izz="2.69E-2" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/adil/sim_ws/src/gazebo_sim/meshes/wheel1.dae" />
+      </geometry>
+    </visual>
+    
+    <collision>
+      <geometry>
+        <mesh filename="file:///home/adil/sim_ws/src/gazebo_sim/meshes/wheel1.dae" />
+      </geometry>
+    </collision>
+    
+  </link>
+
+
+
+<joint name="wheel1" type="continuous">
+        <origin xyz="0.098 0 0" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="wheel1"/>
+        <dynamics damping="0.0" friction="0.1"/>
+   </joint>
+
+<joint name="wheel2" type="continuous">
+        <origin xyz="-0.098 0 0" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="wheel2"/>
+        <dynamics damping="0.0" friction="0.1"/>
+  
+ </joint>
+
+<transmission name="wheel1">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="wheel1">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="wheel1_motor">
+        <mechanicalReduction>3.4</mechanicalReduction>
+        <hardwareInterface>VelocityJointInterface</hardwareInterface>
+      </actuator>
+   </transmission>
+
+<transmission name="wheel2">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="wheel2">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="wheel2_motor">
+        <mechanicalReduction>3.4</mechanicalReduction>
+        <hardwareInterface>VelocityJointInterface</hardwareInterface>
+      </actuator>
+  </transmission>
+
+<gazebo reference="wheel1">
+    <mu1>0.4</mu1>
+    <mu2>0.4</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+<gazebo reference="wheel2">
+    <mu1>0.4</mu1>
+    <mu2>0.4</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+<link name="imu">
+    <visual>
+      <origin 
+      xyz="0.0 0.0 0.0"
+      rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.010 0.01 0.005"/>
+      </geometry>
+    </visual>
+  </link>
+
+<joint name="imu" type="fixed">
+        <origin xyz="0 0 0.045" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="imu"/>
+   </joint>
+
+<gazebo reference="imu">
+    <gravity>true</gravity>
+    <sensor name="imu_sensor" type="imu">
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <visualize>true</visualize>
+      <topic>__default_topic__</topic>
+      <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+        <topicName>imu</topicName>
+        <bodyName>imu</bodyName>
+        <updateRateHZ>10.0</updateRateHZ>
+        <gaussianNoise>0.0</gaussianNoise>
+        <xyzOffset>0 0 0</xyzOffset>
+        <rpyOffset>0 0 0</rpyOffset>
+        <frameName>imu_link</frameName>
+      </plugin>
+      <pose>0 0 0 0 0 0</pose>
+    </sensor>
+  </gazebo>
+
+
+<gazebo>
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      </plugin>
+    </gazebo>
+</robot>
+
+
+
+
