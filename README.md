@@ -86,6 +86,10 @@ python3 Viewer_audio.py
 python3 Viewer_video.py
 ```
 
+**Simulation:**
+
+The gazebo_simulations folder contains the files for the simulations done on the robot using gazebo-ROS using respective sensors and control architecture.
+
 ## Authors
 
 * **Soofiyan Atar**
